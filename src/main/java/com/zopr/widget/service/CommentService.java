@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ import java.util.List;
  */
 @Service
 @Qualifier( value = "commentService" )
+@Transactional
 public class CommentService {
 
 
@@ -26,6 +28,10 @@ public class CommentService {
     private static final Logger logger = LoggerFactory.getLogger(CommentService.class.getName());
 
 
+    /**
+     * Get database connection status
+     * @return AppInfo record
+     */
     public AppInfo getDBStatus() {
         AppInfo appInfo = new AppInfo();
         try {
@@ -47,7 +53,20 @@ public class CommentService {
         return appInfo;
     }
 
+    /**
+     * Get all available comments from database
+     * @return List of comments or null
+     */
     public List<Comment> getAllComments() {
         return jdbcCommentRepository.getAll();
+    }
+
+    /**
+     * Add new comment
+     * @param c comment record to save
+     * @return new Comment record
+     */
+    public Comment addComment (Comment c) {
+        return null;
     }
 }

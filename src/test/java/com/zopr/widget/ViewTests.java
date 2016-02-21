@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
@@ -34,27 +35,38 @@ public class ViewTests {
         this.mockMvc = webAppContextSetup(this.wac).build();
     }
 
+    //------ Test Hello Page -----------
     @Test
     public void shouldFindHelloPage() throws Exception {
-        mockMvc.perform(get("/commentWidget"))
+        mockMvc.perform(get("/hello"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("hello"));
     }
 
+    //------ Test Health  -----------
     @Test
     public void shouldConnectToDatabase() throws Exception {
         String dbStatus = Status.ALIVE.getStatusName();
-        this.mockMvc.perform(get("/commentWidget/health")
+        this.mockMvc.perform(get("/health")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value(dbStatus));
     }
 
+    //------ Test Speakup Page -----------
     @Test
     public void shouldFindSpeakupPage() throws Exception {
-        mockMvc.perform(get("/commentWidget/speakup"))
+        mockMvc.perform(get("/speakup"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("speakup"));
     }
+
+    @Test
+    public void shouldSubmitSuccess() throws Exception {
+        this.mockMvc.perform(post("/speakup/add"))
+                .andExpect(status().isOk());
+
+    }
+
 
 }
