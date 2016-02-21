@@ -16,7 +16,7 @@ public class Comment implements Serializable {
     private static final long serialVersionUID = -1546377046890793898L;
 
 
-    private int id;
+    private Integer id;
     private String name;
     private String text;
     private Date posted;
@@ -24,11 +24,12 @@ public class Comment implements Serializable {
 
     // Getters and Setters
 
-    public int getId() {
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -75,7 +76,7 @@ public class Comment implements Serializable {
 
         Comment comment = (Comment) o;
 
-        if (id != comment.id) return false;
+        if (id != null ? !id.equals(comment.id) : comment.id != null) return false;
         if (name != null ? !name.equals(comment.name) : comment.name != null) return false;
         if (posted != null ? !posted.equals(comment.posted) : comment.posted != null) return false;
         if (text != null ? !text.equals(comment.text) : comment.text != null) return false;
@@ -85,7 +86,7 @@ public class Comment implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (text != null ? text.hashCode() : 0);
         result = 31 * result + (posted != null ? posted.hashCode() : 0);
