@@ -27,10 +27,13 @@ public class AppInfo {
 
     @Override
     public String toString() {
-        return "AppInfo{" +
-                "status='" + status + '\'' +
-                ", connectionString='" + connectionString + '\'' +
-                '}';
+        StringBuilder builder = new StringBuilder();
+        builder.append("AppInfo [status=");
+        builder.append(status);
+        builder.append(", connectionString=");
+        builder.append(connectionString);
+        builder.append("]");
+        return builder.toString();
     }
 
 
