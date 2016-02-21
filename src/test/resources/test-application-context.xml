@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:context="http://www.springframework.org/schema/context"
+             xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <annotation-driven/>
+
+    <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <beans:property name="prefix" value="/WEB-INF/pages/"/>
+        <beans:property name="suffix" value=".jsp"/>
+    </beans:bean>
+
+    <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+    <resources mapping="/resources/**" location="classpath:/resources/"/>
+
+
+    <!-- Configure to plugin JSON as request and response in method handler -->
+    <beans:bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <beans:property name="messageConverters">
+            <beans:list>
+                <beans:ref bean="jsonMessageConverter"/>
+            </beans:list>
+        </beans:property>
+    </beans:bean>
+
+    <!-- Configure bean to convert JSON to POJO and vice versa -->
+    <beans:bean id="jsonMessageConverter"
+                class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+    </beans:bean>
+
+
+    <beans:bean id="widgetDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <beans:property name="url" value="jdbc:postgresql://localhost:5432/postgres"/>
+        <beans:property name="driverClassName" value="org.postgresql.Driver"/>
+        <beans:property name="username" value="postgres"/>
+        <beans:property name="password" value="admin"/>
+        <beans:property name="poolPreparedStatements" value="true"/>
+        <beans:property name="removeAbandoned" value="true"/>
+        <beans:property name="testOnBorrow" value="true"/>
+        <beans:property name="validationQuery" value="SELECT 1"/>
+        <!-- The maximum number of milliseconds that the pool will wait (when there are no available connections)
+        for a connection to be returned before throwing an exception, or <= 0 to wait indefinitely. -->
+        <beans:property name="maxWait" value="400"/>
+        <beans:property name="initialSize" value="10"/>
+        <beans:property name="maxIdle" value="10"/>
+        <beans:property name="maxActive" value="20"/>
+    </beans:bean>
+
+
+    <beans:bean id="jdbcCommentRepository" class="com.zopr.widget.dao.jdbc.JdbcCommentRepository"
+                autowire="byName">
+        <beans:constructor-arg name="dataSource" ref="widgetDataSource"/>
+    </beans:bean>
+
+
+    <context:component-scan base-package="com.zopr.widget"/>
+</beans:beans>
+
+
