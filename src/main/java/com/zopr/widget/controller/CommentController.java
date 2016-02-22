@@ -2,7 +2,7 @@ package com.zopr.widget.controller;
 
 import com.zopr.widget.model.AppInfo;
 import com.zopr.widget.model.Comment;
-import com.zopr.widget.service.CommentService;
+import com.zopr.widget.service.ICommentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class CommentController extends BaseController{
 
 
     @Autowired
-    public CommentService commentService;
+    public ICommentService commentService;
 
 
     // Checks database connection
@@ -54,10 +54,7 @@ public class CommentController extends BaseController{
 
         logger.info("Start addComment");
         this.commentService.addComment(comment);
-        //clean up form data
-
-
-        return super.redirect( "/speakup");
+        return super.redirect("/speakup");
 
     }
 

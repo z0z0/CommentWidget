@@ -63,8 +63,13 @@ public class ViewTests {
 
     @Test
     public void shouldSubmitSuccess() throws Exception {
-        this.mockMvc.perform(post("/speakup/add"))
-                .andExpect(status().isOk());
+        this.mockMvc.perform(post("/speakup/add")
+                .param("name", "Zo")
+                .param("text", "Nemam sta da kazem"))
+                .andExpect(status().isMovedTemporarily())
+                .andExpect(view().name("redirect:/speakup"))
+                .andExpect(model().hasNoErrors());
+
 
     }
 

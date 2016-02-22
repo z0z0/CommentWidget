@@ -17,9 +17,9 @@ import java.util.List;
  * Created by zorana on 2/21/16.
  */
 @Service
-@Qualifier( value = "commentService" )
+@Qualifier(value = "commentService")
 @Transactional
-public class CommentService {
+public class CommentService implements ICommentService {
 
 
     @Autowired
@@ -28,10 +28,7 @@ public class CommentService {
     private static final Logger logger = LoggerFactory.getLogger(CommentService.class.getName());
 
 
-    /**
-     * Get database connection status
-     * @return AppInfo record
-     */
+    @Override
     public AppInfo getDBStatus() {
         AppInfo appInfo = new AppInfo();
         try {
@@ -53,20 +50,14 @@ public class CommentService {
         return appInfo;
     }
 
-    /**
-     * Get all available comments from database
-     * @return List of comments or null
-     */
+    @Override
     public List<Comment> getAllComments() {
         return jdbcCommentRepository.getAll();
     }
 
-    /**
-     * Add new comment
-     * @param c comment record to save
-     * @return new Comment record
-     */
-    public Comment addComment (Comment c) {
-        return null;
+    @Override
+    @Transactional
+    public Integer addComment(Comment comment) {
+        return jdbcCommentRepository.saveComment(comment);
     }
 }

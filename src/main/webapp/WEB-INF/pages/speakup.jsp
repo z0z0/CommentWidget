@@ -39,7 +39,7 @@
                 </form:label>
             </td>
             <td>
-                <form:input path="name" />
+                <form:input path="name" maxlength="50"/>
             </td>
         </tr>
         <tr>
@@ -49,7 +49,7 @@
                 </form:label>
             </td>
             <td>
-                <form:textarea path="text" />
+                <form:textarea path="text"  />
             </td>
         </tr>
         <tr>
