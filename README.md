@@ -19,13 +19,7 @@ Table of content
         - [Database](#database)
         - [IDE] (#ide)
 - [Running WEB application](#running-web-application)
-- [Running REST application](#running-rest-application)
-- [Liquibase](#liquibase)
-- [Issue Tracking & GIT Rules](#issue-tracking--git-rules)
-    - [Labels](#labels)
-    - [Code push to Github](#code-push-to-github)
-- [Working on Issuses](#working-on-issues)
-    - [Naming Rules](#naming-rules)
+
 
 
 Components
@@ -88,7 +82,9 @@ Following mvn commands should be triggered from the command line or IDE.
 
  - Run the web application on Tomcat the following Maven command should be executed: **mvn tomcat:run** from context root
 
- - Health page is available on the following URL   [http://localhost:8080/commentWidget/health](http://localhost:8080/commentWidget/health)
+ - Health page is available on the following URL   [http://localhost:8080/health](http://localhost:8080/health)
+
+ - Comment thread is available at [http://localhost:8080/speakup](http://localhost:8080/speakup)
 
 
 
