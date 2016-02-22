@@ -19,23 +19,12 @@
 
 <form:form action="${addAction}" commandName="comment">
     <table>
-        <c:if test="${!empty comment.name}">
-            <tr>
-                <td>
-                    <form:label path="id">
-                        <spring:message text="ID"/>
-                    </form:label>
-                </td>
-                <td>
-                    <form:input path="id" readonly="true" size="8"  disabled="true" />
-                    <form:hidden path="id" />
-                </td>
-            </tr>
-        </c:if>
+
         <tr>
             <td>
                 <form:label path="name">
                     <spring:message text="Name"/>
+
                 </form:label>
             </td>
             <td>
@@ -55,9 +44,10 @@
         <tr>
             <td colspan="2">
                 <c:if test="${empty comment.name}">
-                    <input type="submit"
-                           value="<spring:message text="Add Person\"/>" />
+                    <input type="submit" disabled="true"
+                           value="<spring:message text="SPEAK\"/>" />
                 </c:if>
+
             </td>
         </tr>
     </table>
